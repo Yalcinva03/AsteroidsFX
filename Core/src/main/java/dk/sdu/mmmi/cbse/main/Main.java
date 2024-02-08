@@ -29,7 +29,8 @@ public class Main extends Application {
     private final GameData gameData = new GameData();
     private final World world = new World();
     private final Map<Entity, Polygon> polygons = new ConcurrentHashMap<>();
-    
+    private Pane gameWindow = new Pane();
+    private int eAmt;
 
     public static void main(String[] args) {
         launch(Main.class);
@@ -38,9 +39,9 @@ public class Main extends Application {
     @Override
     public void start(Stage window) throws Exception {
         Text text = new Text(10, 20, "Destroyed asteroids: 0");
-        Pane gameWindow = new Pane();
         gameWindow.setPrefSize(gameData.getDisplayWidth(), gameData.getDisplayHeight());
         gameWindow.getChildren().add(text);
+        eAmt = world.getEntities().size();
 
         Scene scene = new Scene(gameWindow);
         scene.setOnKeyPressed(event -> {
@@ -53,6 +54,9 @@ public class Main extends Application {
             if (event.getCode().equals(KeyCode.UP)) {
                 gameData.getKeys().setKey(GameKeys.UP, true);
             }
+            if (event.getCode().equals(KeyCode.SPACE)){
+                gameData.getKeys().setKey(GameKeys.SPACE, true);
+            }
         });
         scene.setOnKeyReleased(event -> {
             if (event.getCode().equals(KeyCode.LEFT)) {
@@ -64,7 +68,9 @@ public class Main extends Application {
             if (event.getCode().equals(KeyCode.UP)) {
                 gameData.getKeys().setKey(GameKeys.UP, false);
             }
-
+            if (event.getCode().equals(KeyCode.SPACE)){
+                gameData.getKeys().setKey(GameKeys.SPACE, false);
+            }
         });
 
         // Lookup all Game Plugins using ServiceLoader
@@ -105,6 +111,16 @@ public class Main extends Application {
         for (IEntityProcessingService entityProcessorService : getEntityProcessingServices()) {
             entityProcessorService.process(gameData, world);
         }
+        if(eAmt<world.getEntities().size()){
+            for (Entity entity : world.getEntities()) {
+                if(polygons.get(entity)==null){
+                    Polygon polygon = new Polygon(entity.getPolygonCoordinates());
+                    polygons.put(entity, polygon);
+                    gameWindow.getChildren().add(polygon);
+                }
+            }
+        }
+
 //        for (IPostEntityProcessingService postEntityProcessorService : getPostEntityProcessingServices()) {
 //            postEntityProcessorService.process(gameData, world);
 //        }
