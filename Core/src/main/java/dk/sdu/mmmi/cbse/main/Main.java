@@ -7,10 +7,8 @@ import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
-import java.util.ArrayList;
+
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.concurrent.ConcurrentHashMap;
@@ -30,7 +28,7 @@ public class Main extends Application {
     private final World world = new World();
     private final Map<Entity, Polygon> polygons = new ConcurrentHashMap<>();
     private Pane gameWindow = new Pane();
-    private int eAmt;
+    private int entityAmount;
 
     public static void main(String[] args) {
         launch(Main.class);
@@ -41,7 +39,7 @@ public class Main extends Application {
         Text text = new Text(10, 20, "Destroyed asteroids: 0");
         gameWindow.setPrefSize(gameData.getDisplayWidth(), gameData.getDisplayHeight());
         gameWindow.getChildren().add(text);
-        eAmt = world.getEntities().size();
+        entityAmount = world.getEntities().size();
 
         Scene scene = new Scene(gameWindow);
         scene.setOnKeyPressed(event -> {
@@ -107,19 +105,28 @@ public class Main extends Application {
 
     private void update() {
 
+        for (Entity entity : world.getEntities()){
+            if(entity.isOut()){
+                gameWindow.getChildren().remove(polygons.get(entity));
+                polygons.remove(entity);
+                world.removeEntity(entity);
+                System.out.println(entity.isOut());
+            }
+        }
+
         // Update
         for (IEntityProcessingService entityProcessorService : getEntityProcessingServices()) {
             entityProcessorService.process(gameData, world);
         }
-        if(eAmt<world.getEntities().size()){
-            for (Entity entity : world.getEntities()) {
-                if(polygons.get(entity)==null){
-                    Polygon polygon = new Polygon(entity.getPolygonCoordinates());
-                    polygons.put(entity, polygon);
-                    gameWindow.getChildren().add(polygon);
-                }
+
+        for (Entity entity : world.getEntities()) {
+            if(polygons.get(entity)==null){
+                Polygon polygon = new Polygon(entity.getPolygonCoordinates());
+                polygons.put(entity, polygon);
+                gameWindow.getChildren().add(polygon);
             }
         }
+
 
 //        for (IPostEntityProcessingService postEntityProcessorService : getPostEntityProcessingServices()) {
 //            postEntityProcessorService.process(gameData, world);
