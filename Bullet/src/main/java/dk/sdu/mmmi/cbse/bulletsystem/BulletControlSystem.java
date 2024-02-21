@@ -16,16 +16,31 @@ public class BulletControlSystem implements IEntityProcessingService, BulletSPI 
         for (Entity bullet : world.getEntities(Bullet.class)) {
             double changeX = Math.cos(Math.toRadians(bullet.getRotation()));
             double changeY = Math.sin(Math.toRadians(bullet.getRotation()));
-            bullet.setX(bullet.getX() + changeX);
-            bullet.setY(bullet.getY() + changeY);
+            bullet.setX(bullet.getX() + changeX*5);
+            bullet.setY(bullet.getY() + changeY*5);
+
+            if (bullet.getX() > gameData.getDisplayWidth()) {
+                bullet.setOut(true);
+            }
+            if (bullet.getY() > gameData.getDisplayHeight()) {
+                bullet.setOut(true);
+            }
+            if (bullet.getX() < 0) {
+                bullet.setOut(true);
+            }
+            if (bullet.getY() < 0) {
+                bullet.setOut(true);
+            }
         }
     }
 
     @Override
     public Entity createBullet(Entity shooter, GameData gameData) {
+        double changeX = Math.cos(Math.toRadians(shooter.getRotation()));
+        double changeY = Math.sin(Math.toRadians(shooter.getRotation()));
         Entity bullet = new Bullet();
-        bullet.setX(shooter.getX());
-        bullet.setY(shooter.getY());
+        bullet.setX(shooter.getX() + changeX*17);
+        bullet.setY(shooter.getY() + changeY*17);
         bullet.setRotation(shooter.getRotation());
         bullet.setPolygonCoordinates(-2,-2,2,-2,2,2,-2,2);
         System.out.println("space");

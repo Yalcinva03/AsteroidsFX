@@ -11,7 +11,26 @@ public class Entity implements Serializable {
     private double x;
     private double y;
     private double rotation;
-            
+    private boolean Destroyed;
+    private boolean Out;
+
+    public boolean isDestroyed() {
+        return Destroyed;
+    }
+
+    public boolean isOut() {
+        return Out;
+    }
+
+    public void setOut(boolean out) {
+        Out = out;
+    }
+
+    public void setDestroyed(boolean destroyed) {
+        Destroyed = destroyed;
+    }
+
+
 
     public String getID() {
         return ID.toString();

@@ -111,15 +111,22 @@ public class Main extends Application {
         for (IEntityProcessingService entityProcessorService : getEntityProcessingServices()) {
             entityProcessorService.process(gameData, world);
         }
-        if(eAmt<world.getEntities().size()){
-            for (Entity entity : world.getEntities()) {
-                if(polygons.get(entity)==null){
-                    Polygon polygon = new Polygon(entity.getPolygonCoordinates());
-                    polygons.put(entity, polygon);
-                    gameWindow.getChildren().add(polygon);
-                }
+        for (Entity entity : world.getEntities()){
+            if(entity.isOut()){
+                gameWindow.getChildren().remove(polygons.get(entity));
+                polygons.remove(entity);
+                world.removeEntity(entity);
+                System.out.println(entity.isOut());
             }
         }
+        for (Entity entity : world.getEntities()) {
+            if(polygons.get(entity)==null){
+                Polygon polygon = new Polygon(entity.getPolygonCoordinates());
+                polygons.put(entity, polygon);
+                gameWindow.getChildren().add(polygon);
+            }
+        }
+
 
 //        for (IPostEntityProcessingService postEntityProcessorService : getPostEntityProcessingServices()) {
 //            postEntityProcessorService.process(gameData, world);
