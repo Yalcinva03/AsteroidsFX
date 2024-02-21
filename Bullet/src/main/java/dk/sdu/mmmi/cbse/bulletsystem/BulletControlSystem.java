@@ -36,11 +36,11 @@ public class BulletControlSystem implements IEntityProcessingService, BulletSPI 
 
     @Override
     public Entity createBullet(Entity shooter, GameData gameData) {
-        double changeX = Math.cos(Math.toRadians(shooter.getRotation()));
-        double changeY = Math.sin(Math.toRadians(shooter.getRotation()));
+        double extraX = Math.cos(Math.toRadians(shooter.getRotation()));
+        double extraY = Math.sin(Math.toRadians(shooter.getRotation()));
         Entity bullet = new Bullet();
-        bullet.setX(shooter.getX() + changeX*17);
-        bullet.setY(shooter.getY() + changeY*17);
+        bullet.setX(shooter.getX() + extraX*17);
+        bullet.setY(shooter.getY() + extraY*17);
         bullet.setRotation(shooter.getRotation());
         bullet.setPolygonCoordinates(-2,-2,2,-2,2,2,-2,2);
         System.out.println("space");
