@@ -22,20 +22,20 @@ public class EnemyControlSystem implements IEntityProcessingService {
             world.addEntity(createEnemies(gameData));
         }
         for (Entity enemy : world.getEntities(Enemy.class)){
-            int max = 20;
+            int max = 10;
             int min = 1;
             int range = max - min + 1;
-            int shootOrNo = (int)(Math.random()*(range*3)) - min;
+            int shootOrNo = (int)(Math.random()*(range*17)) - min;
             int moveOrNo = (int)(Math.random()*range) - min;
-            enemy.setRotation(enemy.getRotation() + (10 - moveOrNo));
+            enemy.setRotation(enemy.getRotation() + (4 - moveOrNo));
             if (true) { //forward
                 double changeX = Math.cos(Math.toRadians(enemy.getRotation()));
                 double changeY = Math.sin(Math.toRadians(enemy.getRotation()));
                 enemy.setX(enemy.getX() + changeX);
                 enemy.setY(enemy.getY() + changeY);
             }
-            if (shootOrNo==7 || shootOrNo==3){ //shoot
-                System.out.println("SHOOT FOR PETES SAKE");
+            if (shootOrNo==7){ //shoot
+                System.out.println("enemy shoot");
                 for (BulletSPI bullet : getBulletSPIs()){
                     world.addEntity(bullet.createBullet(enemy,gameData));
                 }
@@ -59,6 +59,9 @@ public class EnemyControlSystem implements IEntityProcessingService {
     }
     public Entity createEnemies(GameData gameData) {
         Entity Enemy = new Enemy();
+        int spawncoordsE = (int)(Math.random()*(5)) - 1;
+        Enemy.setX(gameData.getDisplayWidth()/spawncoordsE);
+        Enemy.setY(gameData.getDisplayWidth()/spawncoordsE);
         Enemy.setPolygonCoordinates(-5,-5,10,-2,10,2,-5,5);
         return Enemy;
     }
