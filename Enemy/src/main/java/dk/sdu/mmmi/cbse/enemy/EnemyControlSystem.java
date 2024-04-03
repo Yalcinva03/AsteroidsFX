@@ -17,7 +17,7 @@ import static java.util.stream.Collectors.toList;
 public class EnemyControlSystem implements IEntityProcessingService {
     @Override
     public void process(GameData gameData, World world) {
-        int spawnE = (int)(Math.random()*(100*10)) - 1;
+        int spawnE = (int)(Math.random()*(5000)) - 1;
         if(spawnE==56){
             world.addEntity(createEnemies(gameData));
         }
