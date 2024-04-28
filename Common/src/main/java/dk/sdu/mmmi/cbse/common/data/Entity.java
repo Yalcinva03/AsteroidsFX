@@ -11,6 +11,7 @@ public class Entity implements Serializable {
     private double x;
     private double y;
     private double rotation;
+    private float radius;
     private boolean Destroyed;
     private boolean Out;
 
@@ -70,6 +71,13 @@ public class Entity implements Serializable {
     public double getRotation() {
         return rotation;
     }
-        
 
+
+    public float getRadius() {
+        return radius;
+    }
+
+    public void setRadius(float radius) {
+        this.radius = radius;
+    }
 }
