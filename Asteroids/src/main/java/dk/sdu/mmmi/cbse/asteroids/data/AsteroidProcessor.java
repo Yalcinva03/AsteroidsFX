@@ -37,7 +37,7 @@ public class AsteroidProcessor implements IEntityProcessingService{
         Entity asteroid = new Asteroid();
         asteroid.setPolygonCoordinates(-10,-10,10,-10,10,10,-10,10); //-10,-10,10,-10,10,10,-10,10
         asteroid.setX(2);
-        asteroid.setY(2);
+        asteroid.setY(Math.random()*(gameData.getDisplayHeight()));
         int max = 360;
         int min = 1;
         int range = max - min + 1;
