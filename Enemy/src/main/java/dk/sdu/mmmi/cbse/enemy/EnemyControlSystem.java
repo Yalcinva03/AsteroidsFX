@@ -62,8 +62,8 @@ public class EnemyControlSystem implements IEntityProcessingService {
     public Entity createEnemies(GameData gameData) {
         Entity Enemy = new Enemy();
         int spawncoordsE = (int)(Math.random()*(5)) - 1;
-        Enemy.setX(gameData.getDisplayWidth()/spawncoordsE);
-        Enemy.setY(gameData.getDisplayWidth()/spawncoordsE);
+        Enemy.setX((double) gameData.getDisplayWidth()/spawncoordsE);
+        Enemy.setY((double )gameData.getDisplayWidth()/spawncoordsE);
         Enemy.setPolygonCoordinates(-5,-5,10,-2,10,2,-5,5);
         Enemy.setRadius(5);
         return Enemy;
