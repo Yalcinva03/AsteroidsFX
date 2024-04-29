@@ -31,6 +31,9 @@ public class BulletControlSystem implements IEntityProcessingService, BulletSPI 
             if (bullet.getY() < 0) {
                 bullet.setOut(true);
             }
+            if(bullet.isDestroyed()){
+                world.removeEntity(bullet);
+            }
         }
     }
 
@@ -43,7 +46,7 @@ public class BulletControlSystem implements IEntityProcessingService, BulletSPI 
         bullet.setY(shooter.getY() + extraY*17);
         bullet.setRotation(shooter.getRotation());
         bullet.setPolygonCoordinates(-2,-2,2,-2,2,2,-2,2);
-        System.out.println("space");
+        bullet.setRadius(2);
         return bullet;
     }
 

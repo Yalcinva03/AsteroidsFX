@@ -35,7 +35,6 @@ public class EnemyControlSystem implements IEntityProcessingService {
                 enemy.setY(enemy.getY() + changeY);
             }
             if (shootOrNo==7){ //shoot
-                System.out.println("enemy shoot");
                 for (BulletSPI bullet : getBulletSPIs()){
                     world.addEntity(bullet.createBullet(enemy,gameData));
                 }
@@ -52,6 +51,9 @@ public class EnemyControlSystem implements IEntityProcessingService {
             if (enemy.getY() > gameData.getDisplayHeight()) {
                 enemy.setY(gameData.getDisplayHeight()-1);
             }
+            if(enemy.isDestroyed()){
+                world.removeEntity(enemy);
+            }
         }
     }
     private Collection<? extends BulletSPI> getBulletSPIs() {
@@ -63,6 +65,7 @@ public class EnemyControlSystem implements IEntityProcessingService {
         Enemy.setX(gameData.getDisplayWidth()/spawncoordsE);
         Enemy.setY(gameData.getDisplayWidth()/spawncoordsE);
         Enemy.setPolygonCoordinates(-5,-5,10,-2,10,2,-5,5);
+        Enemy.setRadius(5);
         return Enemy;
     }
 }

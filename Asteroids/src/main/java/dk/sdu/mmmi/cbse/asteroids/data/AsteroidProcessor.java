@@ -18,31 +18,53 @@ public class AsteroidProcessor implements IEntityProcessingService{
             double Dy = Math.sin(Math.toRadians(asteroid.getRotation()));
             asteroid.setX(asteroid.getX() + Dx*0.5);
             asteroid.setY(asteroid.getY() + Dy*0.5);
-            if (asteroid.getX() < 0) {
-                asteroid.setX(gameData.getDisplayWidth());
+            if (asteroid.getX() < -12) {
+                asteroid.setX(gameData.getDisplayWidth()+11);
             }
-            if (asteroid.getX() > gameData.getDisplayWidth()) {
+            if (asteroid.getX() > gameData.getDisplayWidth()+12) {
                 asteroid.setX(0);
             }
-            if (asteroid.getY() < 0) {
-                asteroid.setY(gameData.getDisplayHeight());
+            if (asteroid.getY() < -12) {
+                asteroid.setY(gameData.getDisplayHeight()+11);
             }
-            if (asteroid.getY() > gameData.getDisplayHeight()) {
+            if (asteroid.getY() > gameData.getDisplayHeight()+12) {
                 asteroid.setY(0);
+            }
+            if(asteroid.isDestroyed()){
+                if(asteroid.getRadius()>5){
+                    splitasteroid(asteroid,world);
+                }
+                world.removeEntity(asteroid);
             }
         }
     }
     private Entity createAsteroid(GameData gameData) {
-
         Entity asteroid = new Asteroid();
         asteroid.setPolygonCoordinates(-10,-10,10,-10,10,10,-10,10); //-10,-10,10,-10,10,10,-10,10
-        asteroid.setX(2);
+        asteroid.setX(Math.random()*10-20);
         asteroid.setY(Math.random()*(gameData.getDisplayHeight()));
         int max = 360;
         int min = 1;
         int range = max - min + 1;
-        asteroid.setRotation(asteroid.getRotation()+ (Math.random()*range));
+        asteroid.setRotation((Math.random()*range));
+        asteroid.setRadius(10);
         return asteroid;
+    }
+    private void splitasteroid(Entity asteroid,World world){
+        Entity asteroid1 = new Asteroid();
+        Entity asteroid2 = new Asteroid();
+        asteroid1.setPolygonCoordinates(-5,-5,5,-5,5,5,-5,5);
+        asteroid2.setPolygonCoordinates(-5,-5,5,-5,5,5,-5,5);
+        asteroid1.setX(asteroid.getX());
+        asteroid1.setY(asteroid.getY());
+        asteroid2.setX(asteroid.getX());
+        asteroid2.setY(asteroid.getY());
+        asteroid1.setRotation(asteroid.getRotation()+45);
+        asteroid2.setRotation(asteroid.getRotation()-45);
+        asteroid1.setRadius(5);
+        asteroid2.setRadius(5);
+        world.addEntity(asteroid1);
+        world.addEntity(asteroid2);
     }
 
 }
