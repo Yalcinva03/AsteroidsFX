@@ -116,7 +116,6 @@ public class Main extends Application {
                 gameWindow.getChildren().remove(polygons.get(entity));
                 polygons.remove(entity);
                 world.removeEntity(entity);
-                System.out.println(entity.isOut());
             }
         }
         for (Entity entity : world.getEntities()) {
