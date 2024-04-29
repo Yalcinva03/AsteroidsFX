@@ -134,11 +134,27 @@ public class Main extends Application {
     }
 
     private void draw() {
+
+        // Remove entities from gameworld if removed from world map
+        for (Entity entity : polygons.keySet()) {
+            if (!world.getEntities().contains(entity)) {
+                gameWindow.getChildren().remove(polygons.get(entity));
+                polygons.remove(entity);
+            }
+        }
+        // Draws all polygons in world map
         for (Entity entity : world.getEntities()) {
-            Polygon polygon = polygons.get(entity);
-            polygon.setTranslateX(entity.getX());
-            polygon.setTranslateY(entity.getY());
-            polygon.setRotate(entity.getRotation());
+            Polygon plgn = polygons.get(entity);
+            // If a polygon does not exist, one is created
+            if (plgn == null) {
+                plgn = new Polygon(entity.getPolygonCoordinates());
+                polygons.put(entity,plgn);
+                gameWindow.getChildren().add(plgn);
+            }
+            plgn.setFill(javafx.scene.paint.Color.rgb(0,0,0));
+            plgn.setTranslateX(entity.getX());
+            plgn.setTranslateY(entity.getY());
+            plgn.setRotate(entity.getRotation());
         }
     }
 

@@ -32,7 +32,7 @@ public class AsteroidProcessor implements IEntityProcessingService{
             }
             if(asteroid.isDestroyed()){
                 if(asteroid.getRadius()>5){
-                    splitasteroid(asteroid,world);
+                    splitAsteroid(asteroid,world);
                 }
                 world.removeEntity(asteroid);
             }
@@ -50,15 +50,17 @@ public class AsteroidProcessor implements IEntityProcessingService{
         asteroid.setRadius(10);
         return asteroid;
     }
-    private void splitasteroid(Entity asteroid,World world){
+    private void splitAsteroid(Entity asteroid,World world){
         Entity asteroid1 = new Asteroid();
         Entity asteroid2 = new Asteroid();
         asteroid1.setPolygonCoordinates(-5,-5,5,-5,5,5,-5,5);
         asteroid2.setPolygonCoordinates(-5,-5,5,-5,5,5,-5,5);
-        asteroid1.setX(asteroid.getX());
-        asteroid1.setY(asteroid.getY());
-        asteroid2.setX(asteroid.getX());
-        asteroid2.setY(asteroid.getY());
+        double extraX = Math.cos(Math.toRadians(asteroid.getRotation()));
+        double extraY = Math.sin(Math.toRadians(asteroid.getRotation()));
+        asteroid1.setX(asteroid.getX()+extraX*15);
+        asteroid1.setY(asteroid.getY()+extraY*15);
+        asteroid2.setX(asteroid.getX()+extraX*15);
+        asteroid2.setY(asteroid.getY()+extraY*15);
         asteroid1.setRotation(asteroid.getRotation()+45);
         asteroid2.setRotation(asteroid.getRotation()-45);
         asteroid1.setRadius(5);

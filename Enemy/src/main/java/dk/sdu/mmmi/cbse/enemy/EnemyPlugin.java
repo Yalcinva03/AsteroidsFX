@@ -25,6 +25,7 @@ public class EnemyPlugin implements IGamePluginService {
         enemy.setPolygonCoordinates(-5,-5,10,-2,10,2,-5,5); //-5,-5,10,-2,10,2,-5,5
         enemy.setX(2);
         enemy.setY(2);
+        enemy.setRadius(10);
         return enemy;
     }
 
