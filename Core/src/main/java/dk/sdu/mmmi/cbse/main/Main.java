@@ -7,6 +7,13 @@ import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
+
+import java.lang.module.Configuration;
+import java.lang.module.ModuleDescriptor;
+import java.lang.module.ModuleFinder;
+import java.lang.module.ModuleReference;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -31,9 +38,27 @@ public class Main extends Application {
     private final Map<Entity, Polygon> polygons = new ConcurrentHashMap<>();
     private Pane gameWindow = new Pane();
     private int eAmt;
+    private static ModuleLayer MLayer;
 
     public static void main(String[] args) {
+        //find dat plugin folder cuh
+        Path pluginPath = Paths.get("plugins");
+        ModuleFinder pluginFinder = ModuleFinder.of(pluginPath);
+
+        //Find all em modules cuh
+        List<String> plugins = pluginFinder.findAll().stream()
+                .map(ModuleReference::descriptor).map(ModuleDescriptor::name)
+                .collect(toList());
+
+        //Create a config with all em modules cuh
+        Configuration pluginConfig = ModuleLayer.boot().configuration()
+                .resolve(pluginFinder, ModuleFinder.of(), plugins);
+        //Create a layer with all em modules cuh
+        MLayer = ModuleLayer.boot().defineModulesWithOneLoader(pluginConfig, ClassLoader.getSystemClassLoader());
+        //Launch the app cuh
         launch(Main.class);
+        //I said forget about it cuh
+        //                        -Paul Walker
     }
 
     @Override
