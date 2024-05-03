@@ -12,7 +12,7 @@ public class Entity implements Serializable {
     private double y;
     private double rotation;
     private float radius;
-    private int Healf;
+    private int Healf = 1;
     private boolean Destroyed;
     private boolean Out;
 

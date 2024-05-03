@@ -13,8 +13,8 @@ public class CollisionDetect implements IEntityProcessingService {
             for(Entity entity2 : world.getEntities()){
                 if(!entity1.equals(entity2)){
                     if(colliding(entity1, entity2)){
-                        entity1.setDestroyed(true);
-                        entity2.setDestroyed(true);
+                        entity1.setHealf(entity1.getHealf()-1);
+                        entity2.setHealf(entity2.getHealf()-1);
                     }
                 }
             }
