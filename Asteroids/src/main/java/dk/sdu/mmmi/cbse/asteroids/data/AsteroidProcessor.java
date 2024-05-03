@@ -35,7 +35,6 @@ public class AsteroidProcessor implements IEntityProcessingService{
                 if(asteroid.getRadius()>6){
                     splitAsteroid(asteroid,world);
                 }
-                world.removeEntity(asteroid);
             }
         }
     }

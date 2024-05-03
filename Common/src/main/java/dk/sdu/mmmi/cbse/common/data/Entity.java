@@ -12,10 +12,14 @@ public class Entity implements Serializable {
     private double y;
     private double rotation;
     private float radius;
+    private int Healf;
     private boolean Destroyed;
     private boolean Out;
 
     public boolean isDestroyed() {
+        if(getHealf() <= 0){
+            Destroyed = true;
+        }
         return Destroyed;
     }
 
@@ -79,5 +83,13 @@ public class Entity implements Serializable {
 
     public void setRadius(float radius) {
         this.radius = radius;
+    }
+
+    public int getHealf() {
+        return Healf;
+    }
+
+    public void setHealf(int healf) {
+        Healf = healf;
     }
 }
