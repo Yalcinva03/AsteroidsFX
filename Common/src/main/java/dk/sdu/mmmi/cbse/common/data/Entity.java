@@ -15,6 +15,14 @@ public class Entity implements Serializable {
     private int Healf = 1;
     private boolean Destroyed;
     private boolean Out;
+    private EntityType type;
+    public EntityType getType() {
+        return type;
+    }
+
+    public void setType(EntityType type) {
+        this.type = type;
+    }
 
     public boolean isDestroyed() {
         if(getHealf() <= 0){
@@ -87,6 +95,10 @@ public class Entity implements Serializable {
 
     public int getHealf() {
         return Healf;
+    }
+    public void decrementHealf(){
+        Healf--;
+
     }
 
     public void setHealf(int healf) {

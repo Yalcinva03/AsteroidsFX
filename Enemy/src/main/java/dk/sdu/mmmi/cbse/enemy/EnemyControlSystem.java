@@ -2,10 +2,7 @@ package dk.sdu.mmmi.cbse.enemy;
 
 import dk.sdu.mmmi.cbse.common.bullet.Bullet;
 import dk.sdu.mmmi.cbse.common.bullet.BulletSPI;
-import dk.sdu.mmmi.cbse.common.data.Entity;
-import dk.sdu.mmmi.cbse.common.data.GameData;
-import dk.sdu.mmmi.cbse.common.data.GameKeys;
-import dk.sdu.mmmi.cbse.common.data.World;
+import dk.sdu.mmmi.cbse.common.data.*;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 
 import java.util.Collection;
@@ -66,6 +63,7 @@ public class EnemyControlSystem implements IEntityProcessingService {
         Enemy.setY((double )gameData.getDisplayWidth()/spawncoordsE);
         Enemy.setPolygonCoordinates(-5,-5,10,-2,10,2,-5,5);
         Enemy.setRadius(5);
+        Enemy.setType(EntityType.ENEMY);
         return Enemy;
     }
 }

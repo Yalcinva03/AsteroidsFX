@@ -1,6 +1,7 @@
 package dk.sdu.mmmi.cbse.asteroids.data;
 
 import dk.sdu.mmmi.cbse.common.data.Entity;
+import dk.sdu.mmmi.cbse.common.data.EntityType;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
@@ -48,6 +49,7 @@ public class AsteroidProcessor implements IEntityProcessingService{
         int range = max - min + 1;
         asteroid.setRotation((Math.random()*range));
         asteroid.setRadius(10);
+        asteroid.setType(EntityType.ASTEROID);
         return asteroid;
     }
     private void splitAsteroid(Entity asteroid,World world){
@@ -68,6 +70,8 @@ public class AsteroidProcessor implements IEntityProcessingService{
         asteroid2.setY(asteroid.getY() + (extraY2*20));
         asteroid1.setRadius(5);
         asteroid2.setRadius(5);
+        asteroid1.setType(EntityType.ASTEROID);
+        asteroid2.setType(EntityType.ASTEROID);
         world.addEntity(asteroid1);
         world.addEntity(asteroid2);
     }

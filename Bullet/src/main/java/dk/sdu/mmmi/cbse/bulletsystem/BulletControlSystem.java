@@ -2,10 +2,7 @@ package dk.sdu.mmmi.cbse.bulletsystem;
 
 import dk.sdu.mmmi.cbse.common.bullet.Bullet;
 import dk.sdu.mmmi.cbse.common.bullet.BulletSPI;
-import dk.sdu.mmmi.cbse.common.data.Entity;
-import dk.sdu.mmmi.cbse.common.data.GameData;
-import dk.sdu.mmmi.cbse.common.data.GameKeys;
-import dk.sdu.mmmi.cbse.common.data.World;
+import dk.sdu.mmmi.cbse.common.data.*;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 
 public class BulletControlSystem implements IEntityProcessingService, BulletSPI {
@@ -47,6 +44,7 @@ public class BulletControlSystem implements IEntityProcessingService, BulletSPI 
         bullet.setRotation(shooter.getRotation());
         bullet.setPolygonCoordinates(-2,-2,2,-2,2,2,-2,2);
         bullet.setRadius(2);
+        bullet.setType(EntityType.BULLET);
         return bullet;
     }
 
