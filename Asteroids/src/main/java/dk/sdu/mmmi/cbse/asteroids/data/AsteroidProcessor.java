@@ -22,13 +22,13 @@ public class AsteroidProcessor implements IEntityProcessingService{
                 asteroid.setX(gameData.getDisplayWidth()+11);
             }
             if (asteroid.getX() > gameData.getDisplayWidth()+12) {
-                asteroid.setX(0);
+                asteroid.setX(-11);
             }
             if (asteroid.getY() < -12) {
                 asteroid.setY(gameData.getDisplayHeight()+11);
             }
             if (asteroid.getY() > gameData.getDisplayHeight()+12) {
-                asteroid.setY(0);
+                asteroid.setY(-11);
             }
             if(asteroid.isDestroyed()){
                 world.removeEntity(asteroid);
