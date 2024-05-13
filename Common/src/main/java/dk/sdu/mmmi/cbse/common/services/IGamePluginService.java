@@ -30,7 +30,7 @@ public interface IGamePluginService {
      * - start(GameData gameData, World world) must have been called
      *
      * Postconditions:
-     * - The implemented initialization for the module have been processed.
+     * - The implemented initialization for the module have been stopped and removed.
      *
      * @param gameData holds data such as the display width and height and the user input keys.
      * @param world holds the map<> of the entities added into the game.
